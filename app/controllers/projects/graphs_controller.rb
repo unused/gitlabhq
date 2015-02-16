@@ -20,6 +20,12 @@ class Projects::GraphsController < Projects::ApplicationController
     @commits_per_month = @commits_graph.commits_per_month
   end
 
+  def issues
+    issue_events = @project.events.where(target_type: 'Issue')
+    @issue_stats = Gitlab::Graphs::Issues.new(issue_events)
+    # @issues_per_month = @commits_graph.average_issues_per_day
+  end
+
   private
 
   def fetch_graph
